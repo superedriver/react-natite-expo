@@ -7,9 +7,9 @@ import { StyleSheet } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { authAtom } from "../../entities/auth/model/auth.state";
-import CustomDrawer from "../../entities/layout/ui/CustomDrawer/CustomDrawer";
 import { MenuButton } from "../../features/layout/ui/MenuButton/MenuButton";
 import { Colors, Fonts } from "../../shared/tokens";
+import CustomDrawer from "../../widget/layout/ui/CustomDrawer/CustomDrawer";
 
 export default function AppLayout() {
   const { accessToken } = useAtomValue(authAtom);
@@ -53,6 +53,7 @@ export default function AppLayout() {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: Colors.black,
     flex: 1,
   },
 });

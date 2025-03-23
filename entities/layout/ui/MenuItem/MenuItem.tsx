@@ -20,7 +20,7 @@ export default function MenuItem({
 }: MenuItemProps) {
   const [clicked, setClicked] = useState<boolean>(false);
   const isActive = drawer.state.routes[drawer.state.index].name === path;
-  console.log("drawer: ", drawer.state);
+
   return (
     <Pressable
       {...props}

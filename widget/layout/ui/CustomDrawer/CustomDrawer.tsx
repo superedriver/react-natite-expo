@@ -10,14 +10,14 @@ import { StyleSheet, View } from "react-native";
 import ClubIcon from "../../../../assets/icons/menu/club";
 import CoursesIcon from "../../../../assets/icons/menu/cources";
 import ProfileIcon from "../../../../assets/icons/menu/profile";
+import { logoutAtom } from "../../../../entities/auth/model/auth.state";
+import MenuItem from "../../../../entities/layout/ui/MenuItem/MenuItem";
+import { loadProfileAtom } from "../../../../entities/user/model/user.state";
+import UserMenu from "../../../user/ui/UserMenu/UserMenu";
 import { CloseDrawer } from "../../../../features/layout/ui/CloseDrawer/CloseDrawer";
 import CustomLink from "../../../../shared/CustomLink/CustomLink";
 import { Logo } from "../../../../shared/Logo/Logo";
 import { Colors } from "../../../../shared/tokens";
-import { logoutAtom } from "../../../auth/model/auth.state";
-import { loadProfileAtom } from "../../../user/model/user.state";
-import UserMenu from "../../../user/ui/UserMenu/UserMenu";
-import MenuItem from "../MenuItem/MenuItem";
 
 const MENU = [
   {
@@ -52,7 +52,7 @@ export default function CustomDrawer(props: DrawerContentComponentProps) {
     >
       <View style={styles.content}>
         <CloseDrawer {...props.navigation} />
-        <UserMenu user={profile.profile?.profile || null} />
+        <UserMenu user={profile?.profile || null} />
         {MENU.map((item) => (
           <MenuItem key={item.text} drawer={props} {...item} />
         ))}

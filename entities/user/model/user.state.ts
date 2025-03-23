@@ -11,6 +11,41 @@ export interface UserState {
   error: string | null;
 }
 
+export const updateProfileAtom = atom(
+  async (get) => get(profileAtom),
+  async (get, set, update: Partial<User>) => {
+    const { accessToken } = await get(authAtom);
+
+    set(profileAtom, {
+      ...get(profileAtom),
+      isLoading: true,
+      error: null,
+    });
+
+    try {
+      const { data } = await axios.patch<User>(API.profile, update, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      set(profileAtom, {
+        isLoading: false,
+        profile: data,
+        error: null,
+      });
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        set(profileAtom, {
+          isLoading: false,
+          profile: null,
+          error: error.response?.data?.error,
+        });
+      }
+    }
+  },
+);
+
 export const loadProfileAtom = atom(
   async (get) => get(profileAtom),
   async (get, set) => {
@@ -23,15 +58,19 @@ export const loadProfileAtom = atom(
     });
 
     try {
-      const { data } = await axios.get<User>(API.profile, {
+      const { data } = await axios.get<{
+        profile: User;
+      }>(API.profile, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
 
+      // console.log("loadProfileAtom data: ", data);
+
       set(profileAtom, {
         isLoading: false,
-        profile: data,
+        profile: data.profile,
         error: null,
       });
     } catch (error) {
