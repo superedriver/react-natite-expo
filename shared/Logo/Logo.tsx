@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Platform, StyleSheet, Text, View } from "react-native";
 
 import { Colors, Gaps } from "../tokens";
 
@@ -18,8 +18,8 @@ export function Logo() {
 
 const styles = StyleSheet.create({
   image: {
-    height: 37,
-    width: 37,
+    height: Platform.select({ ios: 37, android: 47 }),
+    width: Platform.select({ ios: 37, android: 47 }),
   },
   logo: {
     alignItems: "center",

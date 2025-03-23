@@ -4,7 +4,7 @@ import Svg, { Path, SvgProps } from "react-native-svg";
 const MenuIcon = (props: SvgProps) => (
   <Svg width={24} height={24} fill="none" viewBox="0 0 24 24" {...props}>
     <Path
-      stroke="#000"
+      stroke="#FFF"
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}

@@ -12,12 +12,13 @@ import EyeOpenedIcon from "../../assets/icons/eye-opened";
 import { Colors, Fonts, Radius } from "../tokens";
 
 export function Input({
+  style,
   isPassword,
   ...props
 }: TextInputProps & { isPassword?: boolean }) {
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   return (
-    <View>
+    <View style={style}>
       <TextInput
         {...props}
         style={styles.input}
