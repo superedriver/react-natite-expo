@@ -66,8 +66,6 @@ export const loadProfileAtom = atom(
         },
       });
 
-      // console.log("loadProfileAtom data: ", data);
-
       set(profileAtom, {
         isLoading: false,
         profile: data.profile,
