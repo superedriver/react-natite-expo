@@ -1,5 +1,5 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
-import { Redirect } from "expo-router";
+import { Redirect, SplashScreen } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import { useAtomValue } from "jotai";
 import React from "react";
@@ -10,6 +10,8 @@ import { authAtom } from "../../entities/auth/model/auth.state";
 import { MenuButton } from "../../features/layout/ui/MenuButton/MenuButton";
 import { Colors, Fonts } from "../../shared/tokens";
 import CustomDrawer from "../../widget/layout/ui/CustomDrawer/CustomDrawer";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function AppLayout() {
   const { accessToken } = useAtomValue(authAtom);

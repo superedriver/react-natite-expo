@@ -1,5 +1,6 @@
 import MaskedView from "@react-native-masked-view/masked-view";
 import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
 import { Image, Linking, StyleSheet, Text, View } from "react-native";
 
 import { StudentCourseDescription } from "../../../../entities/course/model/course.model";
@@ -14,10 +15,7 @@ export default function CourseCard({
   courseOnDirection,
   alias,
   tariffs,
-  progress,
 }: StudentCourseDescription) {
-  console.log("progress ", progress);
-
   return (
     <View style={styles.card}>
       <Image
@@ -60,7 +58,7 @@ export default function CourseCard({
         <Button
           text="Buy"
           onPress={() =>
-            Linking.openURL(`https://purpleschool.ru/course/${alias}`)
+            Linking.openURL(`https://interstingschool.com/course/${alias}`)
           }
         />
       </View>
@@ -102,11 +100,6 @@ const styles = StyleSheet.create({
   },
   tariffOpacity: {
     opacity: 0,
-  },
-  text: {
-    color: Colors.white,
-    fontFamily: Fonts.regular,
-    fontSize: Fonts.f16,
   },
   title: {
     color: Colors.white,

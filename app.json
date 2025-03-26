@@ -18,7 +18,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#16171D"
       }
     },
     "web": {
@@ -33,6 +33,13 @@
             "./assets/fonts/FiraSans-Regular.ttf",
             "./assets/fonts/FiraSans-SemiBold.ttf"
           ]
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification_icon.png",
+          "color": "#16171D"
         }
       ]
     ],

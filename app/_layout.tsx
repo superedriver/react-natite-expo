@@ -7,6 +7,7 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 
+import Notification from "../shared/Notification/Notification";
 import { Colors } from "../shared/tokens";
 
 SplashScreen.preventAutoHideAsync();
@@ -35,6 +36,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
+      <Notification />
       <StatusBar style="light" />
       <Stack
         screenOptions={{

@@ -1,3 +1,5 @@
+import * as Notifications from "expo-notifications";
+import { SchedulableTriggerInputTypes } from "expo-notifications/src/Notifications.types";
 import { useAtomValue, useSetAtom } from "jotai";
 import React, { useEffect } from "react";
 import {
@@ -13,11 +15,12 @@ import {
   courseAtom,
   loadCourseAtom,
 } from "../../entities/course/model/course.state";
-import CourseCard from "../../widget/course/ui/CourseCard/CourseCard";
+import { Button } from "../../shared/Button/Button";
 import { Colors } from "../../shared/tokens";
+import CourseCard from "../../widget/course/ui/CourseCard/CourseCard";
 
 export default function MyCourses() {
-  const { isLoading, error, courses } = useAtomValue(courseAtom);
+  const { isLoading, courses } = useAtomValue(courseAtom);
   const loadCourses = useSetAtom(loadCourseAtom);
 
   useEffect(() => {
@@ -32,9 +35,60 @@ export default function MyCourses() {
     );
   };
 
+  const allowsNotification = async () => {
+    const settings = await Notifications.getPermissionsAsync();
+    return (
+      settings.granted ||
+      settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
+    );
+  };
+
+  const requestPermissions = async () => {
+    const settings = await Notifications.requestPermissionsAsync({
+      ios: {
+        allowAlert: true,
+        allowBadge: true,
+        allowSound: true,
+        allowProvisional: true,
+      },
+    });
+    return (
+      settings.granted ||
+      settings.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL
+    );
+  };
+
+  const schedualNotifiacation = async () => {
+    const granted = await allowsNotification();
+
+    if (!granted) {
+      await requestPermissions();
+    }
+
+    Notifications.scheduleNotificationAsync({
+      content: {
+        title: "You have a course!",
+        body: "Don't forget to learn!",
+        data: { alias: "typescript" },
+      },
+      trigger: {
+        date: new Date(Date.now() + 5 * 1000),
+        type: SchedulableTriggerInputTypes.DATE,
+      },
+    });
+  };
+
+  // Function to cancel all scheduled notifications
+  const cancelAllNotifications = async () => {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+  };
+
   return (
-    <>
+    <View style={styles.wrapper}>
       {isLoading && <ActivityIndicator style={styles.activity} size="large" />}
+      <Button text="Remind" onPress={schedualNotifiacation} />
+      <Button text="Cancel" onPress={cancelAllNotifications} />
+
       {courses.length > 0 && (
         <FlatList
           refreshControl={
@@ -51,7 +105,7 @@ export default function MyCourses() {
           renderItem={renderItem}
         />
       )}
-    </>
+    </View>
   );
 }
 
